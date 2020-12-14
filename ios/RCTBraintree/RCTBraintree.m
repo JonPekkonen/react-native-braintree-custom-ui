@@ -61,6 +61,20 @@ RCT_EXPORT_METHOD(setupWithURLScheme:(NSString *)serverUrl urlscheme:(NSString*)
 }
 
 
+RCT_EXPORT_METHOD(setupWithTokenAndURLScheme:(NSString *)clientToken urlscheme:(NSString*)urlscheme callback:(RCTResponseSenderBlock)callback)
+{
+    URLScheme = urlscheme;
+    [BTAppSwitch setReturnURLScheme:urlscheme];
+    self.braintreeClient = [[BTAPIClient alloc] initWithAuthorization:clientToken];
+    if (self.braintreeClient == nil) {
+        callback(@[@false]);
+    }
+    else {
+        callback(@[@true]);
+    }
+}
+
+
 RCT_EXPORT_METHOD(showPayPalViewController: (NSString *)amount shippingrequired:(BOOL*)shippingrequired callback: (RCTResponseSenderBlock) callback)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -184,11 +198,9 @@ RCT_EXPORT_METHOD(getCardNonce: (NSDictionary *)params callback: (RCTResponseSen
 {
     NSMutableDictionary *parameters = [params mutableCopy];
     BTCardClient *cardClient = [[BTCardClient alloc] initWithAPIClient: self.braintreeClient];
-    BTCard *card =  [[BTCard alloc] initWithNumber:parameters[@"number"]
-                                   expirationMonth:parameters[@"expirationMonth"]
-                                    expirationYear:parameters[@"expirationYear"]
-                                               cvv:parameters[@"cvv"]];
-    card.shouldValidate = NO;
+    BTCard *card = [[BTCard alloc] initWithParameters:parameters];
+    card.shouldValidate = YES;
+    
     [cardClient tokenizeCard:card
                   completion:^(BTCardNonce *tokenizedCard, NSError *error) {
                       if ( error == nil ) {

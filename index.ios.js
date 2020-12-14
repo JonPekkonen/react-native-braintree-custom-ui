@@ -4,6 +4,10 @@ import {
   NativeModules,
 } from 'react-native';
 
+import { mapParameters } from './utils';
+
+import type { CardParameters } from './types';
+
 
 const RCTBraintree = NativeModules.Braintree;
 
@@ -11,6 +15,13 @@ var Braintree = {
   setup(serverUrl, urlscheme) {
     return new Promise(function (resolve, reject) {
       RCTBraintree.setupWithURLScheme(serverUrl, urlscheme, function (success) {
+        success == true ? resolve(true) : reject('Invalid Token');
+      });
+    });
+  },
+  setupWithTokenAndURLScheme(token, urlscheme) {
+    return new Promise(function (resolve, reject) {
+      RCTBraintree.setupWithTokenAndURLScheme(token, urlscheme, function (success) {
         success == true ? resolve(true) : reject('Invalid Token');
       });
     });
@@ -40,9 +51,9 @@ var Braintree = {
       });
     });
   },
-  getCardNonce(parameters = {}) {
+  getCardNonce(parameters: CardParameters = {}) {
     return new Promise(function (resolve, reject) {
-      RCTBraintree.getCardNonce(parameters, function (
+      RCTBraintree.getCardNonce(mapParameters(parameters), function (
         err,
         nonce
       ) {
