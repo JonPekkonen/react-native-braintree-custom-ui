@@ -1,12 +1,12 @@
 apply plugin: "com.android.library"
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 31
     buildToolsVersion "28.0.3"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
     }
@@ -23,8 +23,27 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"
-    implementation 'com.braintreepayments.api:braintree:3.14.2'
+    implementation 'com.braintreepayments.api:braintree:3.19.0'
     implementation 'com.squareup.okhttp3:okhttp:3.14.4'
-    implementation 'com.braintreepayments.api:three-d-secure:3.14.2'
+    implementation 'com.braintreepayments.api:three-d-secure:3.19.0'
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
+
+    // New sdk versions, REQUIRES migration
+    // https://github.com/braintree/braintree_android/blob/master/v4.9.0+_MIGRATION_GUIDE.md
+    // to offer card payments
+    // implementation 'com.braintreepayments.api:card:4.21.0'
+    // to collect device data
+    // implementation 'com.braintreepayments.api:data-collector:4.21.0'
+    // to offer PayPal 
+    // implementation 'com.braintreepayments.api:paypal:4.21.0'
+    // to offer local payments
+    // implementation 'com.braintreepayments.api:local-payment:4.21.0'
+    // to offer Google Pay
+    // implementation 'com.braintreepayments.api:google-pay:4.21.0'
+    // to offer Union Pay
+    // implementation 'com.braintreepayments.api:union-pay:4.21.0'
+    // to perform 3DS verification 
+    // implementation 'com.braintreepayments.api:three-d-secure:4.21.0'
+    // to offer Venmo
+    // implementation 'com.braintreepayments.api:venmo:4.21.0
 }
