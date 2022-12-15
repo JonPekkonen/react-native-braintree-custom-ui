@@ -2,7 +2,7 @@
 [![npm version](https://badge.fury.io/js/react-native-braintree-custom-ui.svg)](https://badge.fury.io/js/react-native-braintree-custom-ui)
 
 An effort to update https://github.com/kraffslol/react-native-braintree-xplat.
-Use Braintree Android SDK V3 & IOS V4, with 3DS 2.
+Use Braintree Android SDK V4 & IOS V4, with 3DS 2.
 
 Required RN 0.60+ for auto linking on iOS.
 
