@@ -46,6 +46,21 @@ repositories {
 }
 ```
 
+AndroidManifest.xml add:
+```
+<manifest ... >
+  ...
+  <application ...>
+    ...
+    <activity ...> 
+      ...
+      <intent-filter>
+          <action android:name="android.intent.action.VIEW" />
+          <category android:name="android.intent.category.DEFAULT" />
+          <category android:name="android.intent.category.BROWSABLE" />
+          <data android:scheme="${applicationId}.braintree" />
+      </intent-filter>
+```
 ## Get Card Nonce
 If you only want to tokenize credit card information, you can use the following:
 
